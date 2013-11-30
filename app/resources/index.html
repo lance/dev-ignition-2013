@@ -1,0 +1,57 @@
+<html>
+<!-- This is a very simple (and insecure) sample application that uses the vert.x eventbus bridge -->
+  <head>
+    <title>Clown Ballot</title>
+    <link rel="stylesheet" href="app.css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://cdn.sockjs.org/sockjs-0.3.4.min.js"></script>
+    <script src="vertxbus.js"></script>
+  </head>
+
+  <body>
+    <div id="container">
+      <h1>Election Ballot</h1>
+      <p>
+        Click the face of the candidate you would like to vote for.
+        You may also leave a comment.
+      </p>
+
+      <div id="stats" style="clear:both">
+        <h2>Stats</h2>
+        <p>Total votes received: <span id="stats-total"></span></p>
+        <div>
+          <ul id="candidate-stats">
+          </ul>
+        </div>
+      </div>
+
+      <div id="candidate-list"></div>
+
+    </div>
+
+    <!-- This is an underscore.js template -->
+    <script type="text/template" id="candidate-template">
+      <h2><%= name %></h2>
+      <img width="200" height="200" class="headshot" src="<%= image %>"/>
+      <p><span class="votes"><%= votes %></span> votes received!</p>
+      <div>
+        <label>
+          Leave a Comment
+          <input class="comment" type="text" />
+        </label>
+        <ul class="comments">
+          <% for (i in comments) { %>
+            <li><%= comments[i] %></li>
+          <% } %>
+        </ul>
+      </div>
+    </script>
+
+    <script src="lib/underscore.js"></script>
+    <script src="lib/backbone.js"></script>
+    <script src="view.js"></script>
+    <script src="ballot.js"></script>
+
+  </body>
+</html>

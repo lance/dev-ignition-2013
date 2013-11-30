@@ -1,0 +1,19 @@
+{
+  "web": {
+    "web_root": ".",
+    "port": 8080,
+    "bridge": true,
+    "inbound_permitted": [{}],
+    "outbound_permitted": [{}]
+  },
+
+  "mongo": {
+    "address": "demo.mongo",
+    "host": "127.0.0.1",
+    "port": 27017,
+    "pool_size": 20,
+    "db_name": "demo",
+    "collection": "candidates",
+    "finder_address": "/candidates"
+  }
+}
