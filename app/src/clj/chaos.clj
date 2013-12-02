@@ -11,20 +11,15 @@
 ;; vote updates for the candidates.
 (ns demo.chaos
   (:require [vertx.core :as vertx]
-            [vertx.eventbus :as eb]
-            [vertx.logging :as log]))
-
-(defn update-vote [record]
-  (let [votes (+ (get record :votes)
-                 (rand-int 5))
-        addr (str "/candidates/" (get record :_id))] 
-    (eb/publish addr {:votes votes})))
-
-(defn fetch-and-update [_]
+            [vertx.eventbus :as eb]))
+ 
+(defn update-vote [{:keys [votes _id]}]
+  (eb/publish (str "/candidates/" _id)
+    {:votes (+ votes
+              (rand-int 5))}))
+ 
+(vertx/periodic 1000
   (eb/send "/candidates" "all"
-           (fn [response] 
-             (doseq [item (seq (get response :results))] (update-vote item)))))
-
-(vertx/periodic* 1000 fetch-and-update)
-
-
+           (fn [{:keys [results]}] 
+             (doseq [item results]
+               (update-vote item)))))
