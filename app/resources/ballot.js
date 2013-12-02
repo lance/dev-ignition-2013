@@ -78,4 +78,3 @@ var getStats = function(bus) {
 // Use the vertx event bus to synchronize our models
 init(new vertx.EventBus('http://localhost:8080/eventbus'));
 
-

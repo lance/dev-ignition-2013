@@ -3,8 +3,12 @@
     "web_root": ".",
     "port": 8080,
     "bridge": true,
-    "inbound_permitted": [{}],
-    "outbound_permitted": [{}]
+    "inbound_permitted": [{ 
+      "address_re": "/candidates.*|election.stats"
+    }],
+    "outbound_permitted": [{
+      "address_re": "/candidates.*|election.stats"
+    }]
   },
 
   "mongo": {
@@ -13,7 +17,6 @@
     "port": 27017,
     "pool_size": 20,
     "db_name": "demo",
-    "collection": "candidates",
-    "finder_address": "/candidates"
+    "collection": "candidates"
   }
 }

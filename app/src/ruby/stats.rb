@@ -7,7 +7,7 @@ def gather_records( reply_to )
     :total => 0
   }
 
-  EventBus.send( Vertx.config["mongo"]["finder_address"], 'all' ) do |response|
+  EventBus.send( "/" + Vertx.config["mongo"]["collection"], 'all' ) do |response|
     response.body["results"].each do |record|
       update_counts( stats, record["name"], record["votes"].to_i )
     end

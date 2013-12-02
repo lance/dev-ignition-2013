@@ -16,10 +16,12 @@ var listen = function() {
   });
 
   // initialize a finder that returns all
-  bus.registerHandler( config.finder_address, function( msg, replier ) {
+  bus.registerHandler( '/' + config.collection, function( msg, replier ) {
     bus.send( config.address, findAllMessage, function( response ) {
       if ( response.status === 'ok' ) {
         replier( response );
+      } else {
+        print("Unexpected response: " + JSON.stringify(response));
       }
     });
   });
