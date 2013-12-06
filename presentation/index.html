@@ -113,11 +113,11 @@
 
         <section>
           <h2>Modern Mobile Enterprise</h2>
-          <p>Concurrency With Thread Safety</p>
-          <p>Asynchronous/Reactive</p>
-          <p>Client Push</p>
-          <p>Clustering</p>
-          <p>Flying Rainbow Unicorns</p>
+          <p class="fragment">Concurrency With Thread Safety</p>
+          <p class="fragment">Asynchronous/Reactive</p>
+          <p class="fragment">Client Push</p>
+          <p class="fragment">Clustering</p>
+          <p class="fragment">Flying Rainbow Unicorns</p>
 				</section>
 
         <section>
@@ -182,20 +182,18 @@ fs.open('/etc/passwd', function(buffer) {
           <h2>Distributed Event Bus</h2>
           <pre data-trim content-editable><code class="javascript">
 var bus = require('vertx/event_bus');
-var console = require('vertx/console');
 
-bus.registerHandler('app.messages', function(msg, reply) {
-  console.log("Handler got: " + msg);
-  reply("Echoing: " + msg);
+bus.registerHandler('app.messages', function(message, replier) {
+  replier("Echoing: " + message.body);
+});
+
+// send a message to a single recipient and get a response
+bus.send('app.messages', {'body': 'Hey You!'}, function(response) {
+  console.log('Got echo: ' + response);
 });
 
 // send a message to everyone!
-bus.publish('app.messages', 'Hey Everybody!');
-
-// send a message to a single recipient and get a response
-bus.send('app.messages', 'Hey You!', function(reply) {
-  console.log('Got echo: ' + reply);
-});
+bus.publish('app.messages', {'body': 'Hey Everybody!'});
           </code></pre>
           </ul>
         </section>
@@ -203,12 +201,11 @@ bus.send('app.messages', 'Hey You!', function(reply) {
         <section>
           <h2>Distributed Event Bus</h2>
           <p>
-            Allows message passing between different
-            verticles on the same JVM, within a cluster, and over
-            a SockJS bridge to the browser.
+            Message passing between verticles on the same JVM, within a
+            cluster, and over a SockJS bridge to the browser.
           </p>
           <p>Browsers are peers on the Vert.x event bus!</p>
-          <pre data-trim content-editable class="fragment"><code>
+          <pre data-trim content-editable><code>
 var eb = new vertx.EventBus('http://localhost:8080/eventbus');
 
 eb.onopen = function() {
@@ -227,7 +224,6 @@ eb.onopen = function() {
         <section>
           <h2>Demo Time</h2>
           <p>This is where the demo happens.</p>
-          <p>See</p>
           <a href="https://github.com/lance/dev-ignition-2013/tree/master/app">https://github.com/lance/dev-ignition-2013/tree/master/app</a>
 
         </section>
@@ -240,7 +236,7 @@ eb.onopen = function() {
           <h2>Excercises for the Reader</h2>
           <p>Prevent malicious users from doing bad things</p>
           <p>Allow each user to only vote once</p>
-          <p>Create Read and Update MongoDB records</p>
+          <p>Create Read and Delete(?!) MongoDB records</p>
         </section>
 
         <section>
@@ -253,11 +249,10 @@ eb.onopen = function() {
         <section>
           <h2>Resources</h2>
           <p><a href="http://vertx.io">http://vertx.io</a></p>
+          <p><a href="http://twitter.com/vertx_project">@vertx_project</a></p>
           <p><a href="http://github.com/eclipse/vert.x">http://github.com/eclipse/vert.x</a></p>
-          <p><a href="http://github.com/lance/devIgnition2013">http://github.com/lance/devIgnition2013</a>
-          <p>Google vertx group</p>
-          <p>#vertx on irc.freenode.net</p>
-          <p>@vertx_project on Twitter</p>
+          <p><a href="http://github.com/lance/dev-ignition-2013">http://github.com/lance/dev-ignition-2013</a>
+          <p>Google group &amp; #vertx on irc.freenode.net</p>
         </section>
 
         <section>
